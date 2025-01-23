@@ -78,4 +78,6 @@ Graph *createGraphFromFile()
         lineNumber++;
         
     }
+
+    return graph;
 }

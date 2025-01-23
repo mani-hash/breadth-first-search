@@ -22,10 +22,32 @@ int getNoOfNodes()
     return number;
 }
 
+char *getNodeList()
+{
+    size_t length = 0;
+    while (line[length] != '\n')
+    {
+        length++;
+    }
+
+    char *nodeList = (char*)malloc(length * sizeof(char));
+    if (nodeList == NULL)
+    {
+        perror("Failed to allocate memory");
+        exit(1);
+    }
+
+    for (size_t index = 0; index < length; index++)
+    {
+        nodeList[index] = line[index];
+    }
+
+    return nodeList;
+}
+
 Graph *createGraphFromFile()
 {
-    int noOfNodes = 0;
-    bool directed = false;
+    Graph *graph = (Graph*)malloc(sizeof(Graph));
 
     file = fopen(fileName, "r");
     if (file == NULL)
@@ -38,11 +60,11 @@ Graph *createGraphFromFile()
     {
         if (lineNumber == 1)
         {
-            noOfNodes = getNoOfNodes();
+            graph->noOfNodes = getNoOfNodes();
         }
         else if (lineNumber == 2)
         {
-            
+            graph->nodeList = getNodeList();
         }
         else if (lineNumber == 3)
         {

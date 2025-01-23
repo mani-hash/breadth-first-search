@@ -4,5 +4,6 @@
 #include "types.h"
 
 int getNoOfNodes();
+char *getNodeList();
 
 #endif

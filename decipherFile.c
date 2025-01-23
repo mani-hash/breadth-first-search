@@ -25,20 +25,25 @@ int getNoOfNodes()
 
 char *getNodeList()
 {
-    size_t length = 0;
-    while (line[length] != '\n')
+    size_t fullLength = 0;
+    size_t filledLength = 0;
+    while (line[fullLength] != '\n')
     {
-        length++;
+        if (isspace(line[fullLength]))
+        {
+            filledLength++;
+        }
+        fullLength++;
     }
 
-    char *nodeList = (char*)malloc(length * sizeof(char));
+    char *nodeList = (char*)malloc(filledLength * sizeof(char));
     if (nodeList == NULL)
     {
         perror("Failed to allocate memory");
         exit(1);
     }
 
-    for (size_t index = 0, nodeIndex = 0; index < length; index++)
+    for (size_t index = 0, nodeIndex = 0; index < fullLength; index++)
     {
         if (!isspace(line[index]))
         {

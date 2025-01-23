@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <string.h>
 #include "decipherFile.h"
 #include "types.h"
 
@@ -54,6 +55,48 @@ char *getNodeList()
     return nodeList;
 }
 
+bool isGraphDirected()
+{
+    bool isDirected = false;
+
+    size_t length = 0;
+    while (line[length] != '\n' && line[length] != '\0')
+    {
+        length++;
+    }
+
+    char *directionName = (char*)malloc((length+1) * sizeof(char));
+    if (directionName == NULL)
+    {
+        perror("Failed to allocate memory");
+        exit(1);
+    }
+
+    size_t index;
+    for (index = 0; index < length; index++)
+    {
+        directionName[index] = line[index];
+    }
+
+    directionName[index+1] = '\0';
+
+    if (strcmp(directionName, "directed") == 0)
+    {
+        isDirected = true;
+    }
+    else if (strcmp(directionName, "undirected") == 0)
+    {
+        isDirected = false;
+    }
+    else
+    {
+        perror("Incorrect graph type specified!");
+        exit(0);
+    }
+
+    return isDirected;
+}
+
 Graph *createGraphFromFile()
 {
     Graph *graph = (Graph*)malloc(sizeof(Graph));
@@ -77,7 +120,7 @@ Graph *createGraphFromFile()
         }
         else if (lineNumber == 3)
         {
-
+            graph->directed = isGraphDirected();
         }
         else
         {

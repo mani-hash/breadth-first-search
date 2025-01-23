@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "decipherFile.h"
 #include "types.h"
 
@@ -37,9 +38,12 @@ char *getNodeList()
         exit(1);
     }
 
-    for (size_t index = 0; index < length; index++)
+    for (size_t index = 0, nodeIndex = 0; index < length; index++)
     {
-        nodeList[index] = line[index];
+        if (!isspace(line[index]))
+        {
+            nodeList[nodeIndex++] = line[index];
+        }
     }
 
     return nodeList;

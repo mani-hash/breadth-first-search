@@ -3,13 +3,13 @@
 
 #include <stdbool.h>
 
-typedef struct {
+typedef struct GraphNode {
     char nodeName;
     int weight;
-    GraphNode *next;
+    struct GraphNode *next;
 } GraphNode;
 
-typedef struct {
+typedef struct Graph {
     int noOfNodes;
     bool directed;
     GraphNode **adjacentLists;

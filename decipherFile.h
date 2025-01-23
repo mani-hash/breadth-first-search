@@ -6,4 +6,6 @@
 int getNoOfNodes();
 char *getNodeList();
 
+Graph *createGraphFromFile();
+
 #endif

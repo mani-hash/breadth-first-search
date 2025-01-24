@@ -113,10 +113,26 @@ Graph *createGraphFromFile()
         if (lineNumber == 1)
         {
             graph->noOfNodes = getNoOfNodes();
+            graph->adjacentLists = (GraphNode**)malloc(graph->noOfNodes * sizeof(GraphNode));
+
+            // initialize adjacency list
+            for (size_t index = 0; index < graph->noOfNodes; index++)
+            {
+                graph->adjacentLists[index] = NULL;
+            }
         }
         else if (lineNumber == 2)
         {
             graph->nodeList = getNodeList();
+
+            for (size_t index = 0; index < graph->noOfNodes; index++)
+            {
+                GraphNode *graphNode = (GraphNode*)malloc(sizeof(GraphNode));
+                graphNode->nodeName = graph->nodeList[index];
+                graphNode->weight = 0;
+                graphNode->next = NULL;
+                graph->adjacentLists[index] = graphNode;
+            }
         }
         else if (lineNumber == 3)
         {

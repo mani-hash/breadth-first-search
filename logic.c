@@ -6,6 +6,7 @@
 
 static void initQueue(size_t noOfNodes);
 static void initVisitedArray(size_t noOfNodes);
+static void initTraversalStats(TraversalStats *traversalStats);
 
 char *queue;
 bool *visited;
@@ -24,10 +25,22 @@ static void initVisitedArray(size_t noOfNodes)
     }
 }
 
-void bfsAlgorithm(Graph *graph)
+static void initTraversalStats(TraversalStats *traversalStats)
 {
+    traversalStats->nodesVisited = 0;
+    traversalStats->totalWeight = 0;
+    traversalStats->traversalPath = NULL;
+    traversalStats->unReachableNodes = NULL;
+}
+
+TraversalStats bfsAlgorithm(Graph *graph)
+{
+    TraversalStats traversalStats;
+
+    initTraversalStats(&traversalStats);
+
     initQueue(graph->noOfNodes);
     initVisitedArray(graph->noOfNodes);
 
-    
+    return traversalStats;
 }

@@ -214,3 +214,23 @@ Graph *createGraphFromFile()
 
     return graph;
 }
+
+void freeGraph(Graph *graph)
+{
+    for (size_t index = 0; index < graph->noOfNodes; index++)
+    {
+        GraphNode *current = graph->adjacentLists[index];
+        while (current != NULL)
+        {
+            GraphNode *temp = current;
+            current = current->next;
+            free(temp);
+        }
+    }
+
+    free(graph->adjacentLists);
+
+    free(graph->nodeList);
+
+    free(graph);
+}

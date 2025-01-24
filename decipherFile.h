@@ -4,5 +4,6 @@
 #include "types.h"
 
 Graph *createGraphFromFile();
+void freeGraph(Graph *graph);
 
 #endif

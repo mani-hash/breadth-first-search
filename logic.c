@@ -9,6 +9,7 @@ static void initVisitedArray(size_t noOfNodes);
 static void initTraversalStats(TraversalStats *traversalStats);
 static void enqueue(char value);
 static char dequeue();
+static bool isVisited(char value);
 
 char *queue;
 bool *visited;
@@ -63,6 +64,11 @@ static char dequeue()
     return removedValue;
 }
 
+static bool isVisited(char value)
+{
+    return visited[value - 'A'];
+}
+
 TraversalStats bfsAlgorithm(Graph *graph)
 {
     TraversalStats traversalStats;
@@ -71,6 +77,37 @@ TraversalStats bfsAlgorithm(Graph *graph)
 
     initQueue(graph->noOfNodes);
     initVisitedArray(graph->noOfNodes);
+
+    // size_t loopCounter = 0;
+    char startNodeName = graph->nodeList[0];
+    enqueue(startNodeName);
+
+    while (front <= rear)
+    {
+        char visitedNodeName = dequeue();
+
+        if (!isVisited(visitedNodeName))
+        {
+            visited[visitedNodeName - 'A'] = true;
+        }
+
+        GraphNode *currentNode = graph->adjacentLists[visitedNodeName - 'A'];
+
+        while (currentNode != NULL)
+        {
+            if (!isVisited(currentNode->nodeName))
+            {
+                enqueue(currentNode->nodeName);
+                traversalStats.totalWeight += currentNode->weight;
+                visited[currentNode->nodeName - 'A'] = true;
+            }
+
+            currentNode = currentNode->next;
+        }
+    }
+
+    free(queue);
+    free(visited);
 
     return traversalStats;
 }

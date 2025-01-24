@@ -11,6 +11,7 @@ static void enqueue(char value);
 static char dequeue();
 static bool isVisited(char value);
 static void trackTraversalPath(TraversalStats *traversalStats, char value);
+static void getUnreachableNodes(TraversalStats *traversalStats, size_t noOfNodes);
 
 char *queue;
 bool *visited;
@@ -35,6 +36,7 @@ static void initTraversalStats(TraversalStats *traversalStats)
 {
     traversalStats->totalWeight = 0;
     traversalStats->traversalLength = 0;
+    traversalStats->unReachableLength = 0;
     traversalStats->traversalPath = NULL;
     traversalStats->unReachableNodes = NULL;
 }
@@ -104,6 +106,38 @@ static void trackTraversalPath(TraversalStats *traversalStats, char value)
     traversalStats->traversalLength++;
 }
 
+static void getUnreachableNodes(TraversalStats *traversalStats, size_t noOfNodes)
+{
+    char *unreachableNodes = NULL;
+    
+    for (size_t index = 0; index < noOfNodes; index++)
+    {
+        if (!visited[index])
+        {
+            if (unreachableNodes == NULL)
+            {
+                unreachableNodes = (char *)malloc(sizeof(char));
+                *unreachableNodes = (char)(index + 'A');
+            }
+            else
+            {
+                unreachableNodes = (char *)realloc
+                (
+                    unreachableNodes,
+                    (traversalStats->unReachableLength + 1) * sizeof(char)
+                );
+
+                unreachableNodes[traversalStats->unReachableLength] = (char)(index + 'A');
+            }
+
+
+            traversalStats->unReachableLength++;
+        }
+    }
+
+    traversalStats->unReachableNodes = unreachableNodes;
+}
+
 TraversalStats bfsAlgorithm(Graph *graph)
 {
     TraversalStats traversalStats;
@@ -142,6 +176,8 @@ TraversalStats bfsAlgorithm(Graph *graph)
             currentNode = currentNode->next;
         }
     }
+
+    getUnreachableNodes(&traversalStats, graph->noOfNodes);
 
     free(queue);
     free(visited);

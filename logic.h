@@ -8,6 +8,6 @@ typedef struct TraversalStats {
     char *unReachableNodes;
 } TraversalStats;
 
-void bfsAlgorithm(Graph *graph);
+TraversalStats bfsAlgorithm(Graph *graph);
 
 #endif

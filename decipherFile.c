@@ -118,15 +118,11 @@ static void createNewNode
 )
 {
     GraphNode *currentGraphNode = adjacencyList[startingVectorName - 'A'];
+    GraphNode *lastGraphNode = NULL;
 
-    if (currentGraphNode == NULL)
+    while (currentGraphNode != NULL)
     {
-        perror("There was an error accessing initialized graph");
-        exit(1);
-    }
-
-    while (currentGraphNode->next != NULL)
-    {
+        lastGraphNode = currentGraphNode;
         currentGraphNode = currentGraphNode->next;
     }
 
@@ -136,7 +132,14 @@ static void createNewNode
     newGraphNode->weight = weight;
     newGraphNode->next = NULL;
 
-    currentGraphNode->next = newGraphNode;
+    if (lastGraphNode != NULL)
+    {
+        lastGraphNode->next = newGraphNode;
+    }
+    else
+    {
+        adjacencyList[startingVectorName - 'A'] = newGraphNode;
+    }
 }
 
 static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected)
@@ -192,11 +195,11 @@ Graph *createGraphFromFile()
 
             for (size_t index = 0; index < graph->noOfNodes; index++)
             {
-                GraphNode *graphNode = (GraphNode*)malloc(sizeof(GraphNode));
-                graphNode->nodeName = graph->nodeList[index];
-                graphNode->weight = 0;
-                graphNode->next = NULL;
-                graph->adjacentLists[index] = graphNode;
+                // GraphNode *graphNode = (GraphNode*)malloc(sizeof(GraphNode));
+                // graphNode->nodeName = graph->nodeList[index];
+                // graphNode->weight = 0;
+                // graphNode->next = NULL;
+                graph->adjacentLists[index] = NULL;
             }
         }
         else if (lineNumber == 3)

@@ -10,7 +10,14 @@
 static int getNoOfNodes();
 static char *getNodeList();
 static bool isGraphDirected();
-static void constructAdjacencyList(GraphNode **adjacencyList);
+static void createNewNode
+(
+    GraphNode **adjacencyList,
+    char startingVectorName,
+    char endingVectorName,
+    int weight
+);
+static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected);
 
 FILE *file;
 const char fileName[] = "graph.txt"; 
@@ -102,7 +109,37 @@ static bool isGraphDirected()
     return isDirected;
 }
 
-static void constructAdjacencyList(GraphNode **adjacencyList)
+static void createNewNode
+(
+    GraphNode **adjacencyList,
+    char startingVectorName,
+    char endingVectorName,
+    int weight
+)
+{
+    GraphNode *currentGraphNode = adjacencyList[startingVectorName - 'A'];
+
+    if (currentGraphNode == NULL)
+    {
+        perror("There was an error accessing initialized graph");
+        exit(1);
+    }
+
+    while (currentGraphNode->next != NULL)
+    {
+        currentGraphNode = currentGraphNode->next;
+    }
+
+    GraphNode *newGraphNode = (GraphNode*)malloc(sizeof(GraphNode));
+
+    newGraphNode->nodeName = endingVectorName;
+    newGraphNode->weight = weight;
+    newGraphNode->next = NULL;
+
+    currentGraphNode->next = newGraphNode;
+}
+
+static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected)
 {
     char startingVectorName, endingVectorName;
     int weight;
@@ -110,26 +147,7 @@ static void constructAdjacencyList(GraphNode **adjacencyList)
     if (sscanf(line, " %c %c %d", &startingVectorName, &endingVectorName, &weight))
     {
         printf("%c %c %d\n", startingVectorName, endingVectorName, weight);
-        GraphNode *currentGraphNode = adjacencyList[startingVectorName - 'A'];
-
-        if (currentGraphNode == NULL)
-        {
-            perror("There was an error accessing initialized graph");
-            exit(1);
-        }
-
-        while (currentGraphNode->next != NULL)
-        {
-            currentGraphNode = currentGraphNode->next;
-        }
-
-        GraphNode *newGraphNode = (GraphNode*)malloc(sizeof(GraphNode));
-
-        newGraphNode->nodeName = endingVectorName;
-        newGraphNode->weight = weight;
-        newGraphNode->next = NULL;
-
-        currentGraphNode->next = newGraphNode;
+        createNewNode(adjacencyList, startingVectorName, endingVectorName, weight);
     }
     else {
         perror("Error reading file\n");
@@ -182,7 +200,7 @@ Graph *createGraphFromFile()
         }
         else
         {
-            constructAdjacencyList(graph->adjacentLists);
+            constructAdjacencyList(graph->adjacentLists, graph->directed);
         }
 
         lineNumber++;

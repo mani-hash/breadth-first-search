@@ -6,13 +6,19 @@
 #include "decipherFile.h"
 #include "types.h"
 
+// declaration of static functions
+static int getNoOfNodes();
+static char *getNodeList();
+static bool isGraphDirected();
+static void constructAdjacencyList(GraphNode **adjacencyList);
+
 FILE *file;
 const char fileName[] = "graph.txt"; 
 char line[256];
 int lineNumber = 1;
 
 
-int getNoOfNodes()
+static int getNoOfNodes()
 {
     int number;
     if (!sscanf(line, "%d", &number))
@@ -24,7 +30,7 @@ int getNoOfNodes()
     return number;
 }
 
-char *getNodeList()
+static char *getNodeList()
 {
     size_t fullLength = 0;
     size_t filledLength = 0;
@@ -55,7 +61,7 @@ char *getNodeList()
     return nodeList;
 }
 
-bool isGraphDirected()
+static bool isGraphDirected()
 {
     bool isDirected = false;
 
@@ -97,7 +103,7 @@ bool isGraphDirected()
     return isDirected;
 }
 
-void constructAdjacencyList(GraphNode **adjacencyList)
+static void constructAdjacencyList(GraphNode **adjacencyList)
 {
     char startingVectorName, endingVectorName;
     int weight;

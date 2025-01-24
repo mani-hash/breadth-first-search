@@ -132,7 +132,8 @@ static void constructAdjacencyList(GraphNode **adjacencyList)
         currentGraphNode->next = newGraphNode;
     }
     else {
-        printf("errr\n");
+        perror("Error reading file\n");
+        exit(1);
     }
 }
 

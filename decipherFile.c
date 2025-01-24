@@ -148,6 +148,11 @@ static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected)
     {
         printf("%c %c %d\n", startingVectorName, endingVectorName, weight);
         createNewNode(adjacencyList, startingVectorName, endingVectorName, weight);
+
+        if (!isDirected)
+        {
+            createNewNode(adjacencyList, endingVectorName, startingVectorName, weight);
+        }
     }
     else {
         perror("Error reading file\n");

@@ -91,7 +91,7 @@ bool isGraphDirected()
     else
     {
         perror("Incorrect graph type specified!");
-        exit(0);
+        exit(1);
     }
 
     return isDirected;
@@ -104,8 +104,8 @@ Graph *createGraphFromFile()
     file = fopen(fileName, "r");
     if (file == NULL)
     {
-        printf("Error in file");
-        exit(0);
+        perror("Error in file");
+        exit(1);
     }
 
     while (fgets(line, sizeof(line), file))

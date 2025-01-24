@@ -217,6 +217,7 @@ Graph *createGraphFromFile()
 
 void freeGraph(Graph *graph)
 {
+    // free individual linked lists
     for (size_t index = 0; index < graph->noOfNodes; index++)
     {
         GraphNode *current = graph->adjacentLists[index];

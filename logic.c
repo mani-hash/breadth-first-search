@@ -32,7 +32,6 @@ static void initVisitedArray(size_t noOfNodes)
 
 static void initTraversalStats(TraversalStats *traversalStats)
 {
-    traversalStats->nodesVisited = 0;
     traversalStats->totalWeight = 0;
     traversalStats->traversalPath = NULL;
     traversalStats->unReachableNodes = NULL;

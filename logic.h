@@ -3,6 +3,7 @@
 
 typedef struct TraversalStats {
     char *traversalPath;
+    size_t traversalLength;
     size_t totalWeight;
     char *unReachableNodes;
 } TraversalStats;

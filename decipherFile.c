@@ -42,7 +42,7 @@ static char *getNodeList()
     size_t filledLength = 0;
     while (line[fullLength] != '\n')
     {
-        if (isspace(line[fullLength]))
+        if (!isspace(line[fullLength]))
         {
             filledLength++;
         }

@@ -15,7 +15,6 @@ static void constructAdjacencyList(GraphNode **adjacencyList);
 FILE *file;
 const char fileName[] = "graph.txt"; 
 char line[256];
-int lineNumber = 1;
 
 
 static int getNoOfNodes()
@@ -147,6 +146,8 @@ Graph *createGraphFromFile()
         perror("Error in file");
         exit(1);
     }
+
+    int lineNumber = 1;
 
     while (fgets(line, sizeof(line), file))
     {

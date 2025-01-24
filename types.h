@@ -10,7 +10,7 @@ typedef struct GraphNode {
 } GraphNode;
 
 typedef struct Graph {
-    int noOfNodes;
+    size_t noOfNodes;
     bool directed;
     char *nodeList;
     GraphNode **adjacentLists;

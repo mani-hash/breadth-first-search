@@ -6,6 +6,7 @@ typedef struct TraversalStats {
     size_t traversalLength;
     size_t totalWeight;
     char *unReachableNodes;
+    size_t unReachableLength;
 } TraversalStats;
 
 TraversalStats bfsAlgorithm(Graph *graph);

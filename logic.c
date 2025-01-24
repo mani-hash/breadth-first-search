@@ -7,9 +7,13 @@
 static void initQueue(size_t noOfNodes);
 static void initVisitedArray(size_t noOfNodes);
 static void initTraversalStats(TraversalStats *traversalStats);
+static void enqueue(char value);
+static char dequeue();
 
 char *queue;
 bool *visited;
+
+int front = -1, rear = -1;
 
 static void initQueue(size_t noOfNodes)
 {
@@ -31,6 +35,32 @@ static void initTraversalStats(TraversalStats *traversalStats)
     traversalStats->totalWeight = 0;
     traversalStats->traversalPath = NULL;
     traversalStats->unReachableNodes = NULL;
+}
+
+static void enqueue(char value)
+{
+    if (front == -1)
+    {
+        front = 0;
+    }
+    rear++;
+
+    queue[rear] = value;
+
+}
+
+static char dequeue()
+{
+    if (front == -1 || front > rear)
+    {
+        perror("Queue is empty");
+        exit(1);
+    }
+
+    char removedValue = queue[front];
+    front++;
+
+    return removedValue;
 }
 
 TraversalStats bfsAlgorithm(Graph *graph)

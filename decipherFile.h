@@ -7,6 +7,7 @@
 int getNoOfNodes();
 char *getNodeList();
 bool isGraphDirected();
+void constructAdjacencyList(GraphNode **adjacencyList);
 
 Graph *createGraphFromFile();
 

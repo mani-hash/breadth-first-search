@@ -97,6 +97,40 @@ bool isGraphDirected()
     return isDirected;
 }
 
+void constructAdjacencyList(GraphNode **adjacencyList)
+{
+    char startingVectorName, endingVectorName;
+    int weight;
+
+    if (sscanf(line, " %c %c %d", &startingVectorName, &endingVectorName, &weight))
+    {
+        printf("%c %c %d\n", startingVectorName, endingVectorName, weight);
+        GraphNode *currentGraphNode = adjacencyList[startingVectorName - 'A'];
+
+        if (currentGraphNode == NULL)
+        {
+            perror("There was an error accessing initialized graph");
+            exit(1);
+        }
+
+        while (currentGraphNode->next != NULL)
+        {
+            currentGraphNode = currentGraphNode->next;
+        }
+
+        GraphNode *newGraphNode = (GraphNode*)malloc(sizeof(GraphNode));
+
+        newGraphNode->nodeName = endingVectorName;
+        newGraphNode->weight = weight;
+        newGraphNode->next = NULL;
+
+        currentGraphNode->next = newGraphNode;
+    }
+    else {
+        printf("errr\n");
+    }
+}
+
 Graph *createGraphFromFile()
 {
     Graph *graph = (Graph*)malloc(sizeof(Graph));
@@ -140,7 +174,7 @@ Graph *createGraphFromFile()
         }
         else
         {
-
+            constructAdjacencyList(graph->adjacentLists);
         }
 
         lineNumber++;

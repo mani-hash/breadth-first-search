@@ -12,6 +12,7 @@ static char dequeue();
 static bool isVisited(char value);
 static void trackTraversalPath(TraversalStats *traversalStats, char value);
 static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noOfNodes);
+static TraversalStats bfsAlgorithm(Graph *graph);
 
 char *queue;
 bool *visited;
@@ -138,7 +139,7 @@ static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noO
     traversalStats->unReachableNodes = unreachableNodes;
 }
 
-TraversalStats bfsAlgorithm(Graph *graph)
+static TraversalStats bfsAlgorithm(Graph *graph)
 {
     TraversalStats traversalStats;
 

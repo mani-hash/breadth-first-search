@@ -26,11 +26,24 @@ int front = -1, rear = -1;
 static void initQueue(unsigned int noOfNodes)
 {
     queue = (char *)malloc(noOfNodes * sizeof(char));
+
+    if (queue == NULL)
+    {
+        perror("Failed to allocate memory\n");
+        exit(EXIT_FAILURE);
+    }
 }
 
 static void initVisitedArray(unsigned int noOfNodes)
 {
     visited = (bool *)malloc(noOfNodes * sizeof(char));
+
+    if (visited == NULL)
+    {
+        perror("Failed to allocate memory\n");
+        exit(EXIT_FAILURE);
+    }
+
     for (size_t index = 0; index < noOfNodes; index++)
     {
         visited[index] = false;
@@ -122,6 +135,13 @@ static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noO
             if (unreachableNodes == NULL)
             {
                 unreachableNodes = (char *)malloc(sizeof(char));
+
+                if (unreachableNodes == NULL)
+                {
+                    perror("Failed to allocate memory\n");
+                    exit(EXIT_FAILURE);
+                }
+
                 *unreachableNodes = (char)(index + 'A');
             }
             else
@@ -131,6 +151,12 @@ static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noO
                     unreachableNodes,
                     (traversalStats->unReachableLength + 1) * sizeof(char)
                 );
+
+                if (unreachableNodes == NULL)
+                {
+                    perror("Failed to allocate memory\n");
+                    exit(EXIT_FAILURE);
+                }
 
                 unreachableNodes[traversalStats->unReachableLength] = (char)(index + 'A');
             }

@@ -128,6 +128,12 @@ static void createNewNode
 
     GraphNode *newGraphNode = (GraphNode*)malloc(sizeof(GraphNode));
 
+    if (newGraphNode == NULL)
+    {
+        perror("Failed to allocate memory\n");
+        exit(EXIT_FAILURE);
+    }
+
     newGraphNode->nodeName = endingVectorName;
     newGraphNode->weight = weight;
     newGraphNode->next = NULL;
@@ -166,6 +172,12 @@ Graph *createGraphFromFile()
 {
     Graph *graph = (Graph*)malloc(sizeof(Graph));
 
+    if (graph == NULL)
+    {
+        perror("Failed to allocate memory\n");
+        exit(EXIT_FAILURE);
+    }
+
     file = fopen(fileName, "r");
     if (file == NULL)
     {
@@ -181,6 +193,12 @@ Graph *createGraphFromFile()
         {
             graph->noOfNodes = getNoOfNodes();
             graph->adjacentLists = (GraphNode**)malloc(graph->noOfNodes * sizeof(GraphNode));
+
+            if (graph->adjacentLists == NULL)
+            {
+                perror("Failed to allocate memory\n");
+                exit(EXIT_FAILURE);
+            }
 
             // initialize adjacency list
             for (size_t index = 0; index < graph->noOfNodes; index++)

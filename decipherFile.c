@@ -29,8 +29,8 @@ static unsigned int getNoOfNodes()
     unsigned int number;
     if (!sscanf(line, "%u", &number))
     {
-        printf("Error in getting number");
-        exit(0);
+        printf("Error in getting number\n");
+        exit(EXIT_FAILURE);
     }
 
     return number;
@@ -52,8 +52,8 @@ static char *getNodeList()
     char *nodeList = (char*)malloc(filledLength * sizeof(char));
     if (nodeList == NULL)
     {
-        perror("Failed to allocate memory");
-        exit(1);
+        perror("Failed to allocate memory\n");
+        exit(EXIT_FAILURE);
     }
 
     for (size_t index = 0, nodeIndex = 0; index < fullLength; index++)
@@ -80,8 +80,8 @@ static bool isGraphDirected()
     char *directionName = (char*)malloc((length+1) * sizeof(char));
     if (directionName == NULL)
     {
-        perror("Failed to allocate memory");
-        exit(1);
+        perror("Failed to allocate memory\n");
+        exit(EXIT_FAILURE);
     }
 
     size_t index;
@@ -102,8 +102,8 @@ static bool isGraphDirected()
     }
     else
     {
-        perror("Incorrect graph type specified!");
-        exit(1);
+        perror("Incorrect graph type specified!\n");
+        exit(EXIT_FAILURE);
     }
 
     return isDirected;
@@ -158,7 +158,7 @@ static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected)
     }
     else {
         perror("Error reading file\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -169,8 +169,8 @@ Graph *createGraphFromFile()
     file = fopen(fileName, "r");
     if (file == NULL)
     {
-        perror("Error in file");
-        exit(1);
+        perror("Error in file\n");
+        exit(EXIT_FAILURE);
     }
 
     int lineNumber = 1;

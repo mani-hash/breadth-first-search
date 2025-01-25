@@ -63,7 +63,7 @@ static char dequeue()
     if (front == -1 || front > rear)
     {
         perror("Queue is empty");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     char removedValue = queue[front];

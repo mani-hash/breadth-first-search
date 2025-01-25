@@ -212,10 +212,6 @@ Graph *createGraphFromFile()
 
             for (size_t index = 0; index < graph->noOfNodes; index++)
             {
-                // GraphNode *graphNode = (GraphNode*)malloc(sizeof(GraphNode));
-                // graphNode->nodeName = graph->nodeList[index];
-                // graphNode->weight = 0;
-                // graphNode->next = NULL;
                 graph->adjacentLists[index] = NULL;
             }
         }

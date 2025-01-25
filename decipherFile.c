@@ -149,7 +149,6 @@ static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected)
 
     if (sscanf(line, " %c %c %d", &startingVectorName, &endingVectorName, &weight))
     {
-        printf("%c %c %d\n", startingVectorName, endingVectorName, weight);
         createNewNode(adjacencyList, startingVectorName, endingVectorName, weight);
 
         if (!isDirected)

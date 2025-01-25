@@ -20,7 +20,7 @@ static void createNewNode
 static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected);
 
 FILE *file;
-const char fileName[] = "graph.txt"; 
+const char fileName[] = "data/graph.txt"; 
 char line[256];
 
 

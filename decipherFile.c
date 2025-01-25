@@ -90,7 +90,7 @@ static bool isGraphDirected()
         directionName[index] = line[index];
     }
 
-    directionName[index+1] = '\0';
+    directionName[index] = '\0';
 
     if (strcmp(directionName, "directed") == 0)
     {

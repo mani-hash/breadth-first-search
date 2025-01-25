@@ -29,7 +29,7 @@ static unsigned int getNoOfNodes()
     unsigned int number;
     if (!sscanf(line, "%u", &number))
     {
-        printf("Error in getting number\n");
+        perror("Error in getting number\n");
         exit(EXIT_FAILURE);
     }
 

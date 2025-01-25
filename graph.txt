@@ -1,5 +1,5 @@
-5
-A B C D E
+7
+A B C D E F G
 directed
 A B 4
 A C 2

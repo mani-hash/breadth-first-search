@@ -13,6 +13,7 @@ static bool isVisited(char value);
 static void trackTraversalPath(TraversalStats *traversalStats, char value);
 static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noOfNodes);
 static TraversalStats bfsAlgorithm(Graph *graph);
+static void printTraversalPath(char *traversalPath, unsigned int traversalLength);
 
 char *queue;
 bool *visited;
@@ -184,4 +185,25 @@ static TraversalStats bfsAlgorithm(Graph *graph)
     free(visited);
 
     return traversalStats;
+}
+
+static void printTraversalPath(char *traversalPath, unsigned int traversalLength)
+{
+    printf("BFS Traversal Path: ");
+    for (size_t index = 0; index < traversalLength; index++)
+    {
+        printf("%c", traversalPath[index]);
+        if (index + 1 != traversalLength)
+        {
+            printf(" -> ");
+        }
+    }
+    printf("\n");
+}
+
+void displayDataFromTraversingGraph(Graph *graph)
+{
+    TraversalStats traversalStats = bfsAlgorithm(graph);
+
+    printTraversalPath(traversalStats.traversalPath, traversalStats.traversalLength);
 }

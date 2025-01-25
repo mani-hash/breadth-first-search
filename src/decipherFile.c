@@ -302,11 +302,6 @@ Graph *createGraphFromFile()
         else if (lineNumber == 2)
         {
             graph->nodeList = getNodeList();
-
-            for (size_t index = 0; index < graph->noOfNodes; index++)
-            {
-                graph->adjacentLists[index] = NULL;
-            }
         }
         else if (lineNumber == 3)
         {

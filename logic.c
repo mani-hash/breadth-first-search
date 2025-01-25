@@ -14,6 +14,7 @@ static void trackTraversalPath(TraversalStats *traversalStats, char value);
 static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noOfNodes);
 static TraversalStats bfsAlgorithm(Graph *graph);
 static void printTraversalPath(char *traversalPath, unsigned int traversalLength);
+static void printTotalWeight(unsigned int totalWeight);
 
 char *queue;
 bool *visited;
@@ -201,9 +202,15 @@ static void printTraversalPath(char *traversalPath, unsigned int traversalLength
     printf("\n");
 }
 
+static void printTotalWeight(unsigned int totalWeight)
+{
+    printf("Total weight: %u\n", totalWeight);
+}
+
 void displayDataFromTraversingGraph(Graph *graph)
 {
     TraversalStats traversalStats = bfsAlgorithm(graph);
 
     printTraversalPath(traversalStats.traversalPath, traversalStats.traversalLength);
+    printTotalWeight(traversalStats.totalWeight);
 }

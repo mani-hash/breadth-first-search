@@ -7,7 +7,7 @@
 #include "types.h"
 
 // declaration of static functions
-static size_t getNoOfNodes();
+static unsigned int getNoOfNodes();
 static char *getNodeList();
 static bool isGraphDirected();
 static void createNewNode
@@ -24,10 +24,10 @@ const char fileName[] = "graph.txt";
 char line[256];
 
 
-static size_t getNoOfNodes()
+static unsigned int getNoOfNodes()
 {
-    size_t number;
-    if (!sscanf(line, "%zu", &number))
+    unsigned int number;
+    if (!sscanf(line, "%u", &number))
     {
         printf("Error in getting number");
         exit(0);
@@ -38,8 +38,8 @@ static size_t getNoOfNodes()
 
 static char *getNodeList()
 {
-    size_t fullLength = 0;
-    size_t filledLength = 0;
+    unsigned int fullLength = 0;
+    unsigned int filledLength = 0;
     while (line[fullLength] != '\n')
     {
         if (!isspace(line[fullLength]))

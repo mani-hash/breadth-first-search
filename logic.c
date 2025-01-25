@@ -4,26 +4,26 @@
 #include "types.h"
 #include "logic.h"
 
-static void initQueue(size_t noOfNodes);
-static void initVisitedArray(size_t noOfNodes);
+static void initQueue(unsigned int noOfNodes);
+static void initVisitedArray(unsigned int noOfNodes);
 static void initTraversalStats(TraversalStats *traversalStats);
 static void enqueue(char value);
 static char dequeue();
 static bool isVisited(char value);
 static void trackTraversalPath(TraversalStats *traversalStats, char value);
-static void getUnreachableNodes(TraversalStats *traversalStats, size_t noOfNodes);
+static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noOfNodes);
 
 char *queue;
 bool *visited;
 
 int front = -1, rear = -1;
 
-static void initQueue(size_t noOfNodes)
+static void initQueue(unsigned int noOfNodes)
 {
     queue = (char *)malloc(noOfNodes * sizeof(char));
 }
 
-static void initVisitedArray(size_t noOfNodes)
+static void initVisitedArray(unsigned int noOfNodes)
 {
     visited = (bool *)malloc(noOfNodes * sizeof(char));
     for (size_t index = 0; index < noOfNodes; index++)
@@ -106,7 +106,7 @@ static void trackTraversalPath(TraversalStats *traversalStats, char value)
     traversalStats->traversalLength++;
 }
 
-static void getUnreachableNodes(TraversalStats *traversalStats, size_t noOfNodes)
+static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noOfNodes)
 {
     char *unreachableNodes = NULL;
     

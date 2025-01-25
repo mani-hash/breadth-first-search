@@ -5,12 +5,12 @@
 
 typedef struct GraphNode {
     char nodeName;
-    int weight;
+    unsigned int weight;
     struct GraphNode *next;
 } GraphNode;
 
 typedef struct Graph {
-    size_t noOfNodes;
+    unsigned int noOfNodes;
     bool directed;
     char *nodeList;
     GraphNode **adjacentLists;

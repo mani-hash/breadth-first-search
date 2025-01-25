@@ -3,10 +3,10 @@
 
 typedef struct TraversalStats {
     char *traversalPath;
-    size_t traversalLength;
-    size_t totalWeight;
+    unsigned int traversalLength;
+    unsigned int totalWeight;
     char *unReachableNodes;
-    size_t unReachableLength;
+    unsigned int unReachableLength;
 } TraversalStats;
 
 TraversalStats bfsAlgorithm(Graph *graph);

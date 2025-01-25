@@ -1,4 +1,6 @@
-.vscode
+.vscode/*
 *.out
 *.o
 build/*
+!.vscode/tasks.json
+!.vscode/launch.json

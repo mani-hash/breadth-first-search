@@ -106,6 +106,8 @@ static bool isGraphDirected()
         exit(EXIT_FAILURE);
     }
 
+    free(directionName);
+
     return isDirected;
 }
 

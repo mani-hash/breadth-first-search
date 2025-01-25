@@ -98,7 +98,7 @@ static void trackTraversalPath(TraversalStats *traversalStats, char value)
 
         if (newTraversalPath == NULL)
         {
-            perror("Failed to allocate memory");
+            perror("Failed to allocate memory\n");
             exit(EXIT_FAILURE);
         }
 

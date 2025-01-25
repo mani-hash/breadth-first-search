@@ -22,7 +22,7 @@ static void createNewNode
     GraphNode **adjacencyList,
     char startingVectorName,
     char endingVectorName,
-    int weight
+    unsigned int weight
 );
 static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected);
 
@@ -185,7 +185,7 @@ static void createNewNode
     GraphNode **adjacencyList,
     char startingVectorName,
     char endingVectorName,
-    int weight
+    unsigned int weight
 )
 {
     GraphNode *currentGraphNode = adjacencyList[startingVectorName - 'A'];
@@ -233,9 +233,9 @@ static void createNewNode
 static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected)
 {
     char startingVectorName, endingVectorName;
-    int weight;
+    unsigned int weight;
 
-    if (sscanf(line, " %c %c %d", &startingVectorName, &endingVectorName, &weight))
+    if (sscanf(line, " %c %c %u", &startingVectorName, &endingVectorName, &weight))
     {
         createNewNode(adjacencyList, startingVectorName, endingVectorName, weight);
 

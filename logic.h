@@ -9,6 +9,6 @@ typedef struct TraversalStats {
     unsigned int unReachableLength;
 } TraversalStats;
 
-TraversalStats bfsAlgorithm(Graph *graph);
+void displayDataFromTraversingGraph(Graph *graph);
 
 #endif

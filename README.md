@@ -10,8 +10,9 @@
 
 ## Student Information
 - **Name:** Manimehalan Thiyagarajan
-- **Section Number:** [Your Section Number]
-- **Email Address:** [Your Email Address]
+- **Registration Number:** 2023/CS/106
+- **Index Number:** 23001062
+- **Email Address:** 2023cs106@stu.ucsc.cmb.ac.lk
 
 ## Testing Environment
 - **Tested on Linux:** Yes

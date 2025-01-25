@@ -359,6 +359,12 @@ static void printTraversalPath(char *traversalPath, unsigned int traversalLength
             printf(" -> ");
         }
     }
+
+    if (traversalLength == 0)
+    {
+        printf("None");
+    }
+
     printf("\n");
 }
 
@@ -396,6 +402,12 @@ static void printUnReachableNodes(char *unReachableNodes, unsigned int unReachab
             printf(", ");
         }
     }
+
+    if (unReachableLength == 0)
+    {
+        printf("None");
+    }
+
     printf("\n");
 }
 

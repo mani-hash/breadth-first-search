@@ -4,6 +4,14 @@
 #include "types.h"
 #include "logic.h"
 
+/*
+ * @brief declarations for internal functions
+ *
+ * List of static functions local to this file
+ * Meant to be used in this file only
+ * 
+ * @note all internal functions are static
+ */
 static void initQueue(unsigned int noOfNodes);
 static void initVisitedArray(unsigned int noOfNodes);
 static void initTraversalStats(TraversalStats *traversalStats);
@@ -18,11 +26,48 @@ static void printTraversalPath(char *traversalPath, unsigned int traversalLength
 static void printTotalWeight(unsigned int totalWeight);
 static void printUnReachableNodes(char *unReachableNodes, unsigned int unReachableLength);
 
+/*
+ * @brief Queue data structure (array)
+ *
+ * Keeps track of nodes that needs to be 
+ * visited when traversing the graph
+ * 
+ * @note This variable has global scope
+ * 
+ */
 char *queue;
+
+/*
+ * @brief Visited data structure (array)
+ *
+ * Keeps track of nodes that have been
+ * visited when traversing the graph by
+ * setting the relavant index to true/false
+ * 
+ * @note This variable has global scope
+ * 
+ */
 bool *visited;
 
+/*
+ * @brief Front and Rear pointers for Queue
+ *
+ * Track the front and rear of the queue
+ * 
+ * @note These variables have global scope
+ * @note Value -1 indicates empty queue
+ * @warning front > rear results in queue being full
+ * 
+ */
 int front = -1, rear = -1;
 
+/*
+ * @brief Initializes Queue Data Structure
+ * 
+ * @param unsigned int (number of nodes)
+ * @return void
+ * 
+ */
 static void initQueue(unsigned int noOfNodes)
 {
     queue = (char *)malloc(noOfNodes * sizeof(char));
@@ -34,6 +79,13 @@ static void initQueue(unsigned int noOfNodes)
     }
 }
 
+/*
+ * @brief Initializes Visited Data Structure
+ * 
+ * @param unsigned int (number of nodes)
+ * @return void
+ * 
+ */
 static void initVisitedArray(unsigned int noOfNodes)
 {
     visited = (bool *)malloc(noOfNodes * sizeof(char));
@@ -50,6 +102,13 @@ static void initVisitedArray(unsigned int noOfNodes)
     }
 }
 
+/*
+ * @brief Initializes TraversalStats struct
+ * 
+ * @param TraversalStats (pointer*)
+ * @return void
+ * 
+ */
 static void initTraversalStats(TraversalStats *traversalStats)
 {
     traversalStats->totalWeight = 0;
@@ -59,6 +118,16 @@ static void initTraversalStats(TraversalStats *traversalStats)
     traversalStats->unReachableNodes = NULL;
 }
 
+/*
+ * @brief Enqueue function
+ * 
+ * Adds a value to the rear of
+ * the queue array
+ * 
+ * @param char (value)
+ * @return void
+ * 
+ */
 static void enqueue(char value)
 {
     if (front == -1)
@@ -71,6 +140,16 @@ static void enqueue(char value)
 
 }
 
+/*
+ * @brief Dequeue function
+ * 
+ * Removes a value from the front of
+ * the queue array and returns it
+ * 
+ * @param char (value)
+ * @return char 
+ * 
+ */
 static char dequeue()
 {
     if (front == -1 || front > rear)
@@ -85,11 +164,30 @@ static char dequeue()
     return removedValue;
 }
 
+/*
+ * @brief Check if a node is visited
+ * 
+ * @param char (value)
+ * @return bool
+ * 
+ */
 static bool isVisited(char value)
 {
     return visited[value - 'A'];
 }
 
+/*
+ * @brief Track path of bfs traversal
+ * 
+ * Keeps track of nodes that are visited
+ * during bfs and adds these node names to
+ * a dynamic char array
+ * 
+ * @param TraversalStats (pointer*)
+ * @param char (value)
+ * @return void
+ * 
+ */
 static void trackTraversalPath(TraversalStats *traversalStats, char value)
 {
     if (traversalStats->traversalPath == NULL)
@@ -121,9 +219,21 @@ static void trackTraversalPath(TraversalStats *traversalStats, char value)
         updatedTraversalPath[traversalStats->traversalLength] = value;
         traversalStats->traversalPath = updatedTraversalPath;
     }
-    traversalStats->traversalLength++;
+    traversalStats->traversalLength++; // increment count of nodes traversed
 }
 
+/*
+ * @brief Get unreachable node names
+ * 
+ * Get the names of nodes that are
+ * unreachable and adds these to a
+ * dynamic char array
+ * 
+ * @param TraversalStats (pointer*)
+ * @param unsigned int (number of nodes)
+ * @return void
+ * 
+ */
 static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noOfNodes)
 {
     char *unreachableNodes = NULL;
@@ -166,9 +276,20 @@ static void getUnreachableNodes(TraversalStats *traversalStats, unsigned int noO
         }
     }
 
-    traversalStats->unReachableNodes = unreachableNodes;
+    traversalStats->unReachableNodes = unreachableNodes; // attach dynamic array to struct
 }
 
+/*
+ * @brief Breadth First Search Algorithm
+ * 
+ * Contains logic of bfs algorithm
+ * Traverses the graph and keeps track of
+ * relavant data
+ * 
+ * @param Graph (pointer*)
+ * @return TraversalStats
+ * 
+ */
 static TraversalStats bfsAlgorithm(Graph *graph)
 {
     TraversalStats traversalStats;
@@ -178,7 +299,6 @@ static TraversalStats bfsAlgorithm(Graph *graph)
     initQueue(graph->noOfNodes);
     initVisitedArray(graph->noOfNodes);
 
-    // size_t loopCounter = 0;
     char startNodeName = graph->nodeList[0];
     enqueue(startNodeName);
 
@@ -210,12 +330,24 @@ static TraversalStats bfsAlgorithm(Graph *graph)
 
     getUnreachableNodes(&traversalStats, graph->noOfNodes);
 
+    // free dynamically allocated structures
     free(queue);
     free(visited);
 
     return traversalStats;
 }
 
+/*
+ * @brief Display traversal path
+ * 
+ * Displays traversal path in the below format
+ * Node Name 1 -> Node Name 2
+ * 
+ * @param char pointer [array]
+ * @param unsigned int (traversed path count)
+ * @return void
+ * 
+ */
 static void printTraversalPath(char *traversalPath, unsigned int traversalLength)
 {
     printf("BFS Traversal Path: ");
@@ -230,11 +362,29 @@ static void printTraversalPath(char *traversalPath, unsigned int traversalLength
     printf("\n");
 }
 
+/*
+ * @brief Display total weight
+ * 
+ * @param unsigned int (weight)
+ * @return void
+ * 
+ */
 static void printTotalWeight(unsigned int totalWeight)
 {
     printf("Total weight: %u\n", totalWeight);
 }
 
+/*
+ * @brief Display unreachable nodes
+ * 
+ * Displays unreachabble nodes in the below format
+ * Node Name 1, Node Name 2
+ * 
+ * @param char pointer [array]
+ * @param unsigned int (unreachable nodes count)
+ * @return void
+ * 
+ */
 static void printUnReachableNodes(char *unReachableNodes, unsigned int unReachableLength)
 {
     printf("Unreachable Nodes: ");
@@ -249,12 +399,32 @@ static void printUnReachableNodes(char *unReachableNodes, unsigned int unReachab
     printf("\n");
 }
 
+/*
+ * @brief Free dynamically allocated structures
+ * 
+ * Frees dynamically allocated structures
+ * that were not immediately freed upon creation
+ * 
+ * @param TraversalStats (pointer*)
+ * @return void
+ * 
+ */
 static void freeTraversalStats(TraversalStats *traversalStats)
 {
     free(traversalStats->traversalPath);
     free(traversalStats->unReachableNodes);
 }
 
+/*
+ * @brief Run and display all data from traversing graph
+ * 
+ * @param Graph (pointer*)
+ * @return void
+ * 
+ * @note Runs the bfs algorithm and formulates data
+ * @note Also frees dynamically allocated structures
+ * 
+ */
 void displayDataFromTraversingGraph(Graph *graph)
 {
     TraversalStats traversalStats = bfsAlgorithm(graph);

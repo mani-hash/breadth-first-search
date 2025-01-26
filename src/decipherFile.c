@@ -14,6 +14,7 @@
  * 
  * @note all internal functions are static
  */
+static void initGraph(Graph *graph);
 static unsigned int getNoOfNodes();
 static char *getNodeList();
 static bool isGraphDirected();
@@ -24,7 +25,8 @@ static void createNewNode
     char endingVectorName,
     unsigned int weight
 );
-static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected);
+static void trackTotalWeight(Graph *graph, unsigned int weight);
+static void constructAdjacencyList(Graph *graph, GraphNode **adjacencyList, bool isDirected);
 
 /*
  * @brief FILE pointer
@@ -54,6 +56,15 @@ const char fileName[] = "data/graph.txt";
  * @note This variable has global scope
  */
 char line[256];
+
+static void initGraph(Graph *graph)
+{
+    graph->noOfNodes = 0;
+    graph->totalWeight = 0;
+    graph->nodeList = NULL;
+    graph->directed = true;
+    graph->adjacentLists = NULL;
+}
 
 /*
  * @brief Extract number of nodes from line
@@ -219,6 +230,11 @@ static void createNewNode
     }
 }
 
+static void trackTotalWeight(Graph *graph, unsigned int weight)
+{
+    graph->totalWeight += weight;
+}
+
 /*
  * @brief Construct adjacency list
  * 
@@ -230,7 +246,7 @@ static void createNewNode
  * @return void
  * 
  */
-static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected)
+static void constructAdjacencyList(Graph *graph, GraphNode **adjacencyList, bool isDirected)
 {
     char startingVectorName, endingVectorName;
     unsigned int weight;
@@ -238,6 +254,8 @@ static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected)
     if (sscanf(line, " %c %c %u", &startingVectorName, &endingVectorName, &weight))
     {
         createNewNode(adjacencyList, startingVectorName, endingVectorName, weight);
+
+        trackTotalWeight(graph, weight);
 
         // add a bidirectional edge if undirected
         if (!isDirected)
@@ -263,6 +281,8 @@ static void constructAdjacencyList(GraphNode **adjacencyList, bool isDirected)
 Graph *createGraphFromFile()
 {
     Graph *graph = (Graph*)malloc(sizeof(Graph));
+
+    initGraph(graph);
 
     if (graph == NULL)
     {
@@ -309,7 +329,7 @@ Graph *createGraphFromFile()
         }
         else
         {
-            constructAdjacencyList(graph->adjacentLists, graph->directed);
+            constructAdjacencyList(graph, graph->adjacentLists, graph->directed);
         }
 
         lineNumber++;

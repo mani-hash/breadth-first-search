@@ -57,6 +57,13 @@ const char fileName[] = "data/graph.txt";
  */
 char line[256];
 
+/*
+ * @brief Initialize graph struct
+ * 
+ * @param Graph (pointer*)
+ * @return void
+ * 
+ */
 static void initGraph(Graph *graph)
 {
     graph->noOfNodes = 0;
@@ -230,6 +237,18 @@ static void createNewNode
     }
 }
 
+/*
+ * @brief Track total weight of graph
+ * 
+ * Adds the weight of a edge to
+ * previously calculated total weights one
+ * at a time
+ * 
+ * @param Graph (pointer*)
+ * @param unsigned int (weight)
+ * @return void
+ * 
+ */
 static void trackTotalWeight(Graph *graph, unsigned int weight)
 {
     graph->totalWeight += weight;
@@ -255,7 +274,7 @@ static void constructAdjacencyList(Graph *graph, GraphNode **adjacencyList, bool
     {
         createNewNode(adjacencyList, startingVectorName, endingVectorName, weight);
 
-        trackTotalWeight(graph, weight);
+        trackTotalWeight(graph, weight); // add the weight of the edge
 
         // add a bidirectional edge if undirected
         if (!isDirected)

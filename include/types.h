@@ -29,12 +29,14 @@ typedef struct GraphNode {
  * of the deciphered graph 
  * 
  * @member unsigned int (number of nodes) => Total number of nodes in the graph
+ * @member unsigned int (total weight) => total weight of graph
  * @member bool (directed) => Stores whether a graph is directed or undirected
  * @member GraphNode [2d array] (pointer to pointer*) =>  stores the adjacency list
  *
  */
 typedef struct Graph {
     unsigned int noOfNodes;
+    unsigned int totalWeight;
     bool directed;
     char *nodeList;
     GraphNode **adjacentLists;

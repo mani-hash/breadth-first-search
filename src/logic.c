@@ -111,7 +111,6 @@ static void initVisitedArray(unsigned int noOfNodes)
  */
 static void initTraversalStats(TraversalStats *traversalStats)
 {
-    traversalStats->totalWeight = 0;
     traversalStats->traversalLength = 0;
     traversalStats->unReachableLength = 0;
     traversalStats->traversalPath = NULL;
@@ -319,7 +318,6 @@ static TraversalStats bfsAlgorithm(Graph *graph)
             if (!isVisited(currentNode->nodeName))
             {
                 enqueue(currentNode->nodeName);
-                traversalStats.totalWeight += currentNode->weight;
                 visited[currentNode->nodeName - 'A'] = true;
                 trackTraversalPath(&traversalStats, currentNode->nodeName);
             }
@@ -442,7 +440,7 @@ void displayDataFromTraversingGraph(Graph *graph)
     TraversalStats traversalStats = bfsAlgorithm(graph);
 
     printTraversalPath(traversalStats.traversalPath, traversalStats.traversalLength);
-    printTotalWeight(traversalStats.totalWeight);
+    printTotalWeight(graph->totalWeight);
     printUnReachableNodes(traversalStats.unReachableNodes, traversalStats.unReachableLength);
 
     freeTraversalStats(&traversalStats);

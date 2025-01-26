@@ -10,7 +10,6 @@
  * 
  * @member char pointer [array] (traversal path) => stores name of nodes in traversal order
  * @member unsigned int (traversal length) => stores the number of nodes traversed
- * @member unsigned int (total weight) =>  stores total weight of graph
  * @member char pointer [array] (unreachable nodes) => stores the name of nodes that cannot be reached
  * @member unsigned int (unreachable nodes length) => stores number of nodes that cannot be reached
  * 
